@@ -23,7 +23,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { RadioGroup } from "@/components/ui/radio-group"
 import {
   Select,
   SelectContent,
@@ -39,6 +39,8 @@ import {
   EndHour,
   StartHour,
 } from "@/components/event-calendar/constants"
+import RadioGroupColorElement from "@/components/event-calendar/RadioGroupColorElement"
+import { ColorOption } from "@/components/event-calendar/types"
 
 interface EventDialogProps {
   event: CalendarEvent | null
@@ -187,46 +189,41 @@ export function EventDialog({
   }
 
   // Updated color options to match types.ts
-  const colorOptions: Array<{
-    value: EventColor
-    label: string
-    bgClass: string
-    borderClass: string
-  }> = [
+  const colorOptions: ColorOption[] = [
     {
       value: "sky",
       label: "Sky",
-      bgClass: "bg-sky-400 data-[state=checked]:bg-sky-400",
+      bgClass: "!bg-sky-400",
       borderClass: "border-sky-400 data-[state=checked]:border-sky-400",
     },
     {
       value: "amber",
       label: "Amber",
-      bgClass: "bg-amber-400 data-[state=checked]:bg-amber-400",
+      bgClass: "!bg-amber-400",
       borderClass: "border-amber-400 data-[state=checked]:border-amber-400",
     },
     {
       value: "violet",
       label: "Violet",
-      bgClass: "bg-violet-400 data-[state=checked]:bg-violet-400",
+      bgClass: "!bg-violet-400",
       borderClass: "border-violet-400 data-[state=checked]:border-violet-400",
     },
     {
       value: "rose",
       label: "Rose",
-      bgClass: "bg-rose-400 data-[state=checked]:bg-rose-400",
+      bgClass: "!bg-rose-400",
       borderClass: "border-rose-400 data-[state=checked]:border-rose-400",
     },
     {
       value: "emerald",
       label: "Emerald",
-      bgClass: "bg-emerald-400 data-[state=checked]:bg-emerald-400",
+      bgClass: "!bg-emerald-400",
       borderClass: "border-emerald-400 data-[state=checked]:border-emerald-400",
     },
     {
       value: "orange",
       label: "Orange",
-      bgClass: "bg-orange-400 data-[state=checked]:bg-orange-400",
+      bgClass: "!bg-orange-400",
       borderClass: "border-orange-400 data-[state=checked]:border-orange-400",
     },
   ]
@@ -428,16 +425,9 @@ export function EventDialog({
               onValueChange={(value: EventColor) => setColor(value)}
             >
               {colorOptions.map((colorOption) => (
-                <RadioGroupItem
+                <RadioGroupColorElement
                   key={colorOption.value}
-                  id={`color-${colorOption.value}`}
-                  value={colorOption.value}
-                  aria-label={colorOption.label}
-                  className={cn(
-                    "size-6 shadow-none",
-                    colorOption.bgClass,
-                    colorOption.borderClass
-                  )}
+                  colorOption={colorOption}
                 />
               ))}
             </RadioGroup>

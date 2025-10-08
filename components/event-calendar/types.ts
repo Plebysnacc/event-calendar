@@ -18,3 +18,10 @@ export type EventColor =
   | "rose"
   | "emerald"
   | "orange"
+
+export type ColorOption = {
+  value: EventColor
+  label: string
+  bgClass: string
+  borderClass: string
+}
