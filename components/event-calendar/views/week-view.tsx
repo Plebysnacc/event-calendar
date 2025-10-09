@@ -27,8 +27,8 @@ import {
   useCurrentTimeIndicator,
   WeekCellsHeight,
   type CalendarEvent,
-} from "@/components/event-calendar"
-import { EndHour, StartHour } from "@/components/event-calendar/constants"
+} from "@/components/event-calendar/lib"
+import { EndHour, StartHour } from "@/components/event-calendar/lib/constants"
 
 interface WeekViewProps {
   currentDate: Date

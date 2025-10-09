@@ -32,15 +32,15 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import type { CalendarEvent, EventColor } from "@/components/event-calendar"
+import type { CalendarEvent, EventColor } from "@/components/event-calendar/lib"
 import {
   DefaultEndHour,
   DefaultStartHour,
   EndHour,
   StartHour,
-} from "@/components/event-calendar/constants"
+} from "@/components/event-calendar/lib/constants"
 import RadioGroupColorElement from "@/components/event-calendar/radio-group-color-element"
-import { ColorOption } from "@/components/event-calendar/types"
+import { ColorOption } from "@/components/event-calendar/lib/types"
 
 interface EventDialogProps {
   event: CalendarEvent | null

@@ -44,7 +44,7 @@ import {
   MonthView,
   WeekCellsHeight,
   WeekView,
-} from "@/components/event-calendar"
+} from "@/components/event-calendar/lib"
 import { AuthProvider } from "@/components/event-calendar/auth-provider"
 
 export interface EventCalendarProps {

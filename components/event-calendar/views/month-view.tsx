@@ -31,8 +31,8 @@ import {
   sortEvents,
   useEventVisibility,
   type CalendarEvent,
-} from "@/components/event-calendar"
-import { DefaultStartHour } from "@/components/event-calendar/constants"
+} from "@/components/event-calendar/lib"
+import { DefaultStartHour } from "@/components/event-calendar/lib/constants"
 
 interface MonthViewProps {
   currentDate: Date
