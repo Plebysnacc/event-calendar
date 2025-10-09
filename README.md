@@ -1,5 +1,14 @@
 > [!caution]
-> This Repo is in active refactoring, as main repo does not seem to get any updates at the time.
+> This Repo is in active refactoring, as main repo does not seem to get any updates at the time. Changes include:
+> - Removing the Drag & Drop functionality
+> - Switching from a v0 component to using the base shadcn components
+
+> [!tip]
+> Additional planned features include
+> - Authorization based actions
+> - Improved responsivenes
+> - Improved multi-event view
+> - automated testing
 
 # Event Calendar React Component
 
