@@ -39,7 +39,7 @@ import {
   EndHour,
   StartHour,
 } from "@/components/event-calendar/constants"
-import RadioGroupColorElement from "@/components/event-calendar/RadioGroupColorElement"
+import RadioGroupColorElement from "@/components/event-calendar/radio-group-color-element"
 import { ColorOption } from "@/components/event-calendar/types"
 
 interface EventDialogProps {

@@ -4,12 +4,11 @@
 # Event Calendar React Component
 
 A flexible, interactive calendar component built with [shadcn](https://ui.shadcn.com/) UI components. This calendar
-provides multiple view modes, drag-and-drop event management, and a clean, responsive interface.
+provides multiple view modes, and a clean, responsive interface.
 
 ## Features
 
 - 📅 Multiple view modes: Month, Week, Day, and Agenda
-- 🔄 Drag-and-drop event management
 - 🎨 Event color customization
 - 📱 Responsive design for all screen sizes
 - 🌓 Dark mode support
@@ -99,13 +98,6 @@ Lists all events in a chronological list format, making it easy to see upcoming 
 
 This calendar component is in early alpha stage and is not recommended for production use. There are several limitations
 and issues that need to be addressed:
-
-### Drag and Drop Limitations
-
-- In month view, only the first day of multi-day events is draggable
-- In week and day views, multi-day events are placed in an "All day" section at the top of the view and are not
-  draggable
-- Some drag and drop operations may not update the event data correctly in certain edge cases
 
 ### Visual and UX Issues
 

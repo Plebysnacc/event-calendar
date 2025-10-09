@@ -20,8 +20,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import {
-  DraggableEvent,
-  DroppableCell,
+  EventContainer,
+  Cell,
   EventGap,
   EventHeight,
   EventItem,
@@ -138,7 +138,7 @@ export function MonthView({
                   data-today={isToday(day) || undefined}
                   data-outside-cell={!isCurrentMonth || undefined}
                 >
-                  <DroppableCell
+                  <Cell
                     id={cellId}
                     date={day}
                     onClick={() => {
@@ -201,7 +201,7 @@ export function MonthView({
                             className="aria-hidden:hidden"
                             aria-hidden={isHidden ? "true" : undefined}
                           >
-                            <DraggableEvent
+                            <EventContainer
                               event={event}
                               view="month"
                               onClick={(e) => handleEventClick(event, e)}
@@ -264,7 +264,7 @@ export function MonthView({
                         </Popover>
                       )}
                     </div>
-                  </DroppableCell>
+                  </Cell>
                 </div>
               )
             })}

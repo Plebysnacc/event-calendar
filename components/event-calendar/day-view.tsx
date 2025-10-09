@@ -15,8 +15,8 @@ import {
 
 import { cn } from "@/lib/utils"
 import {
-  DraggableEvent,
-  DroppableCell,
+  EventContainer,
+  Cell,
   EventItem,
   isMultiDayEvent,
   useCurrentTimeIndicator,
@@ -252,7 +252,7 @@ export function DayView({
               }}
             >
               <div className="h-full w-full">
-                <DraggableEvent
+                <EventContainer
                   event={positionedEvent.event}
                   view="day"
                   onClick={(e) => handleEventClick(positionedEvent.event, e)}
@@ -288,7 +288,7 @@ export function DayView({
                 {[0, 1, 2, 3].map((quarter) => {
                   const quarterHourTime = hourValue + quarter * 0.25
                   return (
-                    <DroppableCell
+                    <Cell
                       key={`${hour.toString()}-${quarter}`}
                       id={`day-cell-${currentDate.toISOString()}-${quarterHourTime}`}
                       date={currentDate}
