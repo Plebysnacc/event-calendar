@@ -2,7 +2,7 @@
 
 import { differenceInDays } from "date-fns"
 
-import { CalendarEvent, EventItem } from "@/components/event-calendar"
+import { CalendarEvent, EventItem } from "@/components/event-calendar/lib"
 import React from "react"
 
 interface EventContainerProps {

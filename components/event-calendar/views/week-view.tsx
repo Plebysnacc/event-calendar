@@ -1,34 +1,18 @@
-"use client"
+"use client";
 
-import React, { useMemo } from "react"
-import {
-  addHours,
-  areIntervalsOverlapping,
-  differenceInMinutes,
-  eachDayOfInterval,
-  eachHourOfInterval,
-  endOfWeek,
-  format,
-  getHours,
-  getMinutes,
-  isBefore,
-  isSameDay,
-  isToday,
-  startOfDay,
-  startOfWeek,
-} from "date-fns"
+import React, { useMemo } from "react";
+import { addHours, areIntervalsOverlapping, eachDayOfInterval, eachHourOfInterval, endOfWeek, format, getHours, getMinutes, isBefore, isSameDay, isToday, startOfDay, startOfWeek } from "date-fns";
 
-import { cn } from "@/lib/utils"
-import {
-  EventContainer,
-  Cell,
-  EventItem,
-  isMultiDayEvent,
-  useCurrentTimeIndicator,
-  WeekCellsHeight,
-  type CalendarEvent,
-} from "@/components/event-calendar"
-import { EndHour, StartHour } from "@/components/event-calendar/constants"
+
+
+import { cn } from "@/lib/utils";
+import { Cell, EventContainer, EventItem, isMultiDayEvent, sortEventsFn, useCurrentTimeIndicator, WeekCellsHeight, type CalendarEvent } from "@/components/event-calendar/lib";
+import { EndHour, StartHour } from "@/components/event-calendar/lib/constants";
+import { useAuth } from "@/components/event-calendar/auth-provider"
+
+
+
+
 
 interface WeekViewProps {
   currentDate: Date
@@ -52,6 +36,7 @@ export function WeekView({
   onEventSelect,
   onEventCreate,
 }: WeekViewProps) {
+  const {isAdmin} = useAuth()
   const days = useMemo(() => {
     const weekStart = startOfWeek(currentDate, { weekStartsOn: 0 })
     const weekEnd = endOfWeek(currentDate, { weekStartsOn: 0 })
@@ -92,7 +77,7 @@ export function WeekView({
 
   // Process events for each day to calculate positions
   const processedDayEvents = useMemo(() => {
-    const result = days.map((day) => {
+    return days.map((day) => {
       // Get events for this day that are not all-day events or multi-day events
       const dayEvents = events.filter((event) => {
         // Skip all-day events and multi-day events
@@ -110,21 +95,7 @@ export function WeekView({
       })
 
       // Sort events by start time and duration
-      const sortedEvents = [...dayEvents].sort((a, b) => {
-        const aStart = new Date(a.start)
-        const bStart = new Date(b.start)
-        const aEnd = new Date(a.end)
-        const bEnd = new Date(b.end)
-
-        // First sort by start time
-        if (aStart < bStart) return -1
-        if (aStart > bStart) return 1
-
-        // If start times are equal, sort by duration (longer events first)
-        const aDuration = differenceInMinutes(aEnd, aStart)
-        const bDuration = differenceInMinutes(bEnd, bStart)
-        return bDuration - aDuration
-      })
+      const sortedEvents = [...dayEvents].sort(sortEventsFn)
 
       // Calculate positions for each event
       const positionedEvents: PositionedEvent[] = []
@@ -185,7 +156,7 @@ export function WeekView({
         currentColumn.push({ event, end: adjustedEnd })
 
         // Calculate width and left position based on number of columns
-        const width = columnIndex === 0 ? 1 : 1 - (columnIndex * 0.1)
+        const width = columnIndex === 0 ? 1 : 1 - columnIndex * 0.1
         const left = columnIndex === 0 ? 0 : columnIndex * 0.1
 
         positionedEvents.push({
@@ -200,8 +171,6 @@ export function WeekView({
 
       return positionedEvents
     })
-
-    return result
   }, [days, events])
 
   const handleEventClick = (event: CalendarEvent, e: React.MouseEvent) => {
@@ -387,6 +356,7 @@ export function WeekView({
                             "top-[calc(var(--week-cells-height)/4*3)]"
                         )}
                         onClick={() => {
+                          if (!isAdmin) return;
                           const startTime = new Date(day)
                           startTime.setHours(hourValue)
                           startTime.setMinutes(quarter * 15)

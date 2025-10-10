@@ -68,6 +68,7 @@ function App() {
 | `className`                 | `string`                                 | -         | Additional CSS class for styling                                                               |
 | `initialView`               | `"month" \| "week" \| "day" \| "agenda"` | `"month"` | Initial view mode of the calendar                                                              |
 | `startOnFirstEventInFuture` | `boolean`                                | `false`   | Sets the initial view onto the timeframe in which the first event lies, if it is in the future |
+| `adminMode`                 | `boolean`                                | `true`    | (De-)activates creating, editing and deleting events                                           |
 
 ## Event Object Structure
 

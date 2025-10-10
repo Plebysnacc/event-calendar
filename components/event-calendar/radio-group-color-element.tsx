@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import { RadioGroupItem } from "@/components/ui/radio-group"
-import { ColorOption } from "@/components/event-calendar/types"
+import { ColorOption } from "@/components/event-calendar/lib/types"
 
 export default function RadioGroupColorElement({
   colorOption,

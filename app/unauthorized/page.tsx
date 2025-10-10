@@ -1,7 +1,8 @@
 "use client"
 
+
 import DemoPage from "@/components/demo-page"
 
 export default function Home() {
-  return <DemoPage startOnFirstFutureEvent/>
+  return <DemoPage adminMode={false}/>
 }

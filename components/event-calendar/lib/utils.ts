@@ -1,6 +1,6 @@
-import { isSameDay } from "date-fns"
+import { differenceInMinutes, isSameDay } from "date-fns"
 
-import type { CalendarEvent, EventColor } from "@/components/event-calendar"
+import type { CalendarEvent, EventColor } from "@/components/event-calendar/lib/index"
 
 /**
  * Get CSS classes for event colors
@@ -155,4 +155,21 @@ export function getInitialDate(events: CalendarEvent[]) {
   const firstEventStart = eventsSortedByStart[0].start
 
   return now < firstEventStart ? firstEventStart : now
+}
+
+/** Sorts events by start time and duration - ascending */
+export function sortEventsFn(a: CalendarEvent, b: CalendarEvent) {
+    const aStart = new Date(a.start)
+    const bStart = new Date(b.start)
+    const aEnd = new Date(a.end)
+    const bEnd = new Date(b.end)
+
+    // First sort by start time
+    if (aStart < bStart) return -1
+    if (aStart > bStart) return 1
+
+    // If start times are equal, sort by duration (longer events first)
+    const aDuration = differenceInMinutes(aEnd, aStart)
+    const bDuration = differenceInMinutes(bEnd, bStart)
+    return bDuration - aDuration
 }

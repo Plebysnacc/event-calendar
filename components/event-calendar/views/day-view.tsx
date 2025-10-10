@@ -4,7 +4,6 @@ import React, { useMemo } from "react"
 import {
   addHours,
   areIntervalsOverlapping,
-  differenceInMinutes,
   eachHourOfInterval,
   format,
   getHours,
@@ -14,16 +13,18 @@ import {
 } from "date-fns"
 
 import { cn } from "@/lib/utils"
+import { useAuth } from "@/components/event-calendar/auth-provider"
 import {
-  EventContainer,
   Cell,
+  EventContainer,
   EventItem,
   isMultiDayEvent,
+  sortEventsFn,
   useCurrentTimeIndicator,
   WeekCellsHeight,
   type CalendarEvent,
-} from "@/components/event-calendar"
-import { EndHour, StartHour } from "@/components/event-calendar/constants"
+} from "@/components/event-calendar/lib"
+import { EndHour, StartHour } from "@/components/event-calendar/lib/constants"
 
 interface DayViewProps {
   currentDate: Date
@@ -47,6 +48,7 @@ export function DayView({
   onEventSelect,
   onEventCreate,
 }: DayViewProps) {
+  const { isAdmin } = useAuth()
   const hours = useMemo(() => {
     const dayStart = startOfDay(currentDate)
     return eachHourOfInterval({
@@ -91,21 +93,7 @@ export function DayView({
     const dayStart = startOfDay(currentDate)
 
     // Sort events by start time and duration
-    const sortedEvents = [...timeEvents].sort((a, b) => {
-      const aStart = new Date(a.start)
-      const bStart = new Date(b.start)
-      const aEnd = new Date(a.end)
-      const bEnd = new Date(b.end)
-
-      // First sort by start time
-      if (aStart < bStart) return -1
-      if (aStart > bStart) return 1
-
-      // If start times are equal, sort by duration (longer events first)
-      const aDuration = differenceInMinutes(aEnd, aStart)
-      const bDuration = differenceInMinutes(bEnd, bStart)
-      return bDuration - aDuration
-    })
+    const sortedEvents = [...timeEvents].sort(sortEventsFn)
 
     // Track columns for overlapping events
     const columns: { event: CalendarEvent; end: Date }[][] = []
@@ -158,7 +146,7 @@ export function DayView({
       currentColumn.push({ event, end: adjustedEnd })
 
       // First column takes full width, others are indented by 10% and take 90% width
-      const width = columnIndex === 0 ? 1 : 1 - (columnIndex * 0.1)
+      const width = columnIndex === 0 ? 1 : 1 - columnIndex * 0.1
       const left = columnIndex === 0 ? 0 : columnIndex * 0.1
 
       result.push({
@@ -304,6 +292,7 @@ export function DayView({
                           "top-[calc(var(--week-cells-height)/4*3)]"
                       )}
                       onClick={() => {
+                        if (!isAdmin) return
                         const startTime = new Date(currentDate)
                         startTime.setHours(hourValue)
                         startTime.setMinutes(quarter * 15)

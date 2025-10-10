@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo } from "react"
+import React, { useMemo } from "react"
 import { RiCalendarEventLine } from "@remixicon/react"
 import { addDays, format, isToday } from "date-fns"
 
@@ -9,7 +9,7 @@ import {
   CalendarEvent,
   EventItem,
   getAgendaEventsForDay,
-} from "@/components/event-calendar"
+} from "@/components/event-calendar/lib"
 
 interface AgendaViewProps {
   currentDate: Date
